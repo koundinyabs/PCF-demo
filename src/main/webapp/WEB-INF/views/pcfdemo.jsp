@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>PivotalOne Demo</title>
+<title>PivotalAppService Demo</title>
 <meta http-equiv="Cache-Control"
 	content="no-store, no-cache, must-revalidate, max-age=0">
 <link href="resources/css/retail.css" rel="stylesheet">
@@ -108,17 +108,17 @@
 	</div>
 
 	<div id="maincontent" style="overflow-y: scroll;">
-		<div align="center"> 
+		<div align="center">
         <small>Instance hosted at &nbsp;<%=request.getLocalAddr() %>:<%=request.getLocalPort() %></small><br>
         <c:if test="${vcap_app != null && !empty vcap_app}">
         	<small>Instance Index &nbsp;<em>${vcap_app['instance_index']}</em></small><br>
         </c:if>
 		<c:choose>
 			<c:when test="${rabbitURI != null}">
-				<small>Data being streamed from RabbitMQ</small>				
+				<small>Data being streamed from RabbitMQ</small>
 			</c:when>
 			<c:otherwise>
-				<small><b>No RabbitMQ service bound - streaming is not active</b> </small>	
+				<small><b>No RabbitMQ service bound - streaming is not active</b> </small>
 			</c:otherwise>
 		</c:choose>
 		<br>
@@ -127,15 +127,15 @@
 		<div align="center"><b>Orders density per US State (tip: click on a state for details)</b></div>
   		<div id="usmap" align="center"></div>
   		<div id="stateOrders" align="center" ></div>
-	</div>  		
-	
+	</div>
+
     <div class="container">
         <div class="footer">
-          <div class="footer-text">©&nbsp;2014 Pivotal Software, Inc.  </div>
+          <div class="footer-text">ï¿½&nbsp;2014 Pivotal Software, Inc.  </div>
           <div class="footer-poweredby"><img src="resources/img/PoweredByPivotal.png" alt="Powered By Pivotal "></div>
 	    </div>
-	</div>  		
-  		
+	</div>
+
 
 
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
@@ -144,63 +144,63 @@
 
 <script src="/resources/js/histograms.js"></script>
 
-<script lang="javascript">//<![CDATA[ 
+<script lang="javascript">//<![CDATA[
 
-                                     
+
 function startStream(){
 	$.get("startStream", function(data){
 		$( "#autogenMsg" ).text( data ).show().fadeOut( 3000 );
-    });       
-}                                     
+    });
+}
 function stopStream(){
 	$.get("stopStream", function(data){
 		$( "#autogenMsg" ).text( data ).show().fadeOut( 3000 );
-    });       
-}                                     
-      
+    });
+}
+
 function killApp(){
 	$.get("killApp", function(data){
 		$( "#autogenMsg" ).text( data ).show().fadeOut( 3000 );
-    });       
-}                       
+    });
+}
 var hits = {};
 
 /*
 var numberOfItems = 50;
-var rainbow = new Rainbow(); 
+var rainbow = new Rainbow();
 rainbow.setNumberRange(1, numberOfItems);
 rainbow.setSpectrum('white', 'pivotal');
 */
 
-var updateHistogram = function() { 
+var updateHistogram = function() {
 	$.getJSON( "getHeatMap", function(data) {
 		var parade = data.heatMap;
 		for (var i = 0 ; i<parade.length ; i++)
-		    hits[parade[i].state] = parade[i].heatMapColor;	
-		
+		    hits[parade[i].state] = parade[i].heatMapColor;
+
 		/*
 		var s = '';
 		for (var i = 1; i <= numberOfItems; i++) {
 		    var hexColour = rainbow.colourAt(i);
 		    s += '#' + hexColour + ', ';
 		}
-		document.write(s);		
+		document.write(s);
 		*/
 		/*
 		var heatmap = d3.scale.linear()
 	    .domain([0,10000])
 	    .interpolate(d3.interpolateRgb)
-	    .range(["#ffffff","#073f07"]);	
+	    .range(["#ffffff","#073f07"]);
 		*/
 		 g.selectAll("path")
 	//	 	 .style("fill", function(d) { return heatmap(Math.log(hits[d.properties.abbr] || 1)); });
 
 		 	.style("fill", function(d) { return hits[d.properties.abbr]; });
-		
-	});     
+
+	});
 	setTimeout(updateHistogram, 1200);
-	
-};          
+
+};
 /*
 $(document).bind("ajaxComplete", function(){
 
@@ -280,20 +280,20 @@ function click(d) {
     y = -centroid[1];
     k = 4;
     centered = d;
-    
+
     $("#stateOrders").show(1000);
 
     selectedState = d.properties.abbr;
 	chart2.titleText="Orders for "+d.properties.name;
 
     //chart2.titleText="Orders for "+d.properties.abbr;
-    setTimeout(function(){	  
+    setTimeout(function(){
   	    $('body').animate({
   	        scrollTop: 1000
-  	    }, 1000);  
-    }, 1500);    
-    
-    
+  	    }, 1000);
+    }, 1500);
+
+
   } else {
     centered = null;
   }
@@ -423,7 +423,7 @@ function click(d) {
 	            return _self.yscale(d.Value);
 	        });
 	        //
-	        //  Title 
+	        //  Title
 	        //
 	        _self.Title = _self.svg.append("text")
 	            .attr("id", "title-" + _self.guid)
@@ -525,7 +525,7 @@ function click(d) {
 	            return _self.color(d.Name);
 	        });
 	        //
-	        //  Legend 
+	        //  Legend
 	        //
 	        _self.Legend = _self.svg.selectAll(".Legend")
 	            .data(_self.DataSeries)
@@ -631,7 +631,7 @@ function click(d) {
 	}
 
 	$("#stateOrders").hide();
-	
+
 	var chart2 = new chartRT();
 	chart2.xText = "Seconds";
 	chart2.yText = "Value";
@@ -656,22 +656,22 @@ function click(d) {
 
 	chart2.addSeries("Orders")
 
-	var updateData = function() { 
+	var updateData = function() {
 		$.get("getData?state="+selectedState, function(data){
 		    for (Name in chart2.chartSeries) {
 		        chart2.chartSeries[Name] = data;
 		    }
-	    });       
+	    });
 		setTimeout(updateData, 50);
-		
-	};          
+
+	};
 	/*
 	$(document).bind("ajaxComplete", function(){
 		setTimeout(updateData, 300);
 	});
 	*/
 	setTimeout(updateData, 1000);
-//]]>  
+//]]>
 
 </script>
 
