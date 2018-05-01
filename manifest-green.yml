@@ -1,0 +1,9 @@
+---
+applications:
+- name: pcfdemo-green
+  memory: 768M
+  instances: 1
+  path: ./pcfdemo-green.war
+  host: pcfdemo-ks-green
+  services:
+    - fufu
